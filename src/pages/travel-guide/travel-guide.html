@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Travel Guide</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let category of categories" (click)="goToPlacesPage(category)">
+      <ion-avatar item-left>
+        <img src="{{ category.image ? category.image.url() : '' }}">
+      </ion-avatar>
+      <h2>{{ category.name }}</h2>
+    </ion-item>
+  </ion-list>
+</ion-content>

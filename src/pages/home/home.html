@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Man Shwe Set Taw</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="goToAboutPage()">
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+  <ion-card (click)="goToHistoryPage()">
+    <img src="assets/img/card-history.png" />
+    <div class="card-title">သမိုင်း</div>
+    <div class="card-subtitle">History</div>
+  </ion-card>
+  <ion-card (click)="goToNewsPage()">
+    <img src="assets/img/card-news.png" />
+    <div class="card-title">သတင်း</div>
+    <div class="card-subtitle">News</div>
+  </ion-card>
+  <ion-card (click)="goToWeatherPage()">
+    <img src="assets/img/card-weather.png" />
+    <div class="card-title">ရာသီဥတု</div>
+    <div class="card-subtitle">Weather</div>
+  </ion-card>
+  <ion-card (click)="goToTravelGuidePage()">
+    <img src="assets/img/card-travel-guide.png" />
+    <div class="card-title">ခရီးသွားလမ်းညွှန်</div>
+    <div class="card-subtitle">Travel Guide</div>
+  </ion-card>
+</ion-content>

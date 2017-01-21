@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Weather</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let weather of forecast">
+      <ion-thumbnail item-left>
+        <img src="http://openweathermap.org/img/w/{{ weather.weather[0].icon }}.png">
+      </ion-thumbnail>
+      <h2>{{ weather.dt * 1000 | date: 'EEEE' }}</h2>
+      <p>
+        <ion-icon name="thermometer"></ion-icon>&nbsp;&nbsp;{{ weather.temp.min | temperature: 'c' }} ~ {{ weather.temp.max | temperature: 'c' }}&nbsp;&nbsp;
+        <ion-icon name="umbrella"></ion-icon>&nbsp;&nbsp;{{ weather.humidity }} %
+      </p>
+    </ion-item>
+  </ion-list>
+</ion-content>

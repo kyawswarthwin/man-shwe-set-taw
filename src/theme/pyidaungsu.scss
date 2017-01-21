@@ -1,0 +1,8 @@
+$pyidaungsu-font-path: $font-path !default;
+
+@font-face {
+  font-family: "Pyidaungsu";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Pyidaungsu"), local("Pyidaungsu"), url("#{$pyidaungsu-font-path}/pyidaungsu.ttf") format("truetype"), url("#{$pyidaungsu-font-path}/pyidaungsu.woff") format("woff");
+}

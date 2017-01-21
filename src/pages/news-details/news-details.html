@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>News Details</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let detail of details">
+    <ion-item *ngFor="let author of detail._embedded.author">
+      <ion-avatar item-left>
+        <img src="{{ author.avatar_urls['48'] }}">
+      </ion-avatar>
+      <h2>{{ author.name }}</h2>
+      <p>{{ detail.date | date }}</p>
+    </ion-item>
+    <div *ngFor="let image of detail._embedded['wp:featuredmedia']">
+      <img src="{{ image.media_details.sizes.full.source_url }}" *ngIf="image.source_url">
+    </div>
+    <ion-card-content>
+      <ion-card-title>{{ detail.title.rendered }}</ion-card-title>
+      <p [innerHTML]="detail.content.rendered">
+        {{ detail.content.rendered }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

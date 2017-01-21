@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>News</ion-title>
+  </ion-navbar>
+  <ion-searchbar [(ngModel)]="searchQuery" (keyup.enter)="searchPosts(searchQuery)" (ionInput)="clearSearch($event)">
+  </ion-searchbar>
+</ion-header>
+
+<ion-content (ionScrollEnd)="onScrollEnd($event)">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card *ngFor="let post of posts">
+    <ion-item *ngFor="let author of post._embedded.author">
+      <ion-avatar item-left>
+        <img src="{{ author.avatar_urls['48'] }}">
+      </ion-avatar>
+      <h2>{{ author.name }}</h2>
+      <p>{{ post.date | date }}</p>
+    </ion-item>
+    <div *ngFor="let image of post._embedded['wp:featuredmedia']">
+      <img src="{{ image.media_details.sizes.full.source_url }}" *ngIf="image.source_url">
+    </div>
+    <ion-card-content>
+      <ion-card-title>{{ post.title.rendered }}</ion-card-title>
+      <p [innerHTML]="post.excerpt.rendered">
+        {{ post.excerpt.rendered }}
+      </p>
+    </ion-card-content>
+    <ion-item>
+      <button ion-button clear (click)="goToNewsDetailsPage(post._links.self[0].href)">See More</button>
+    </ion-item>
+  </ion-card>
+  <ion-fab right bottom *ngIf="showButton">
+    <button ion-fab color="danger" (click)="scrollToTop()"><ion-icon name="arrow-dropup"></ion-icon></button>
+  </ion-fab>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
