@@ -2,7 +2,7 @@ import { Component, Injector, ViewChild, NgZone } from '@angular/core';
 import { BasePage } from '../base/base';
 import { Content } from 'ionic-angular';
 import { BlogService } from '../../providers/blog-service';
-import { NewsDetailsPage } from '../news-details/news-details';
+import { NewsDetailPage } from '../news-detail/news-detail';
 
 @Component({
   selector: 'page-news',
@@ -24,30 +24,30 @@ export class NewsPage extends BasePage {
   }
 
   ionViewDidLoad() {
-    this.showLoading();
+    this.showLoadingView();
     this.blog.posts().then(data => {
       this.posts = data;
-      this.hideLoading();
+      // this.hideLoading();
     }, error => {
-      this.hideLoading();
+      // this.hideLoading();
       console.log(error);
     });
   }
 
-  goToNewsDetailsPage(url: string) {
-    this.navigateTo(NewsDetailsPage, {
+  goToNewsDetailPage(url: string) {
+    this.navigateTo(NewsDetailPage, {
       url: url
     });
   }
 
   searchPosts(query: string) {
-    this.showLoading();
+    this.showLoadingView();
     this.blog.searchPosts(query).then(data => {
       this.posts = data;
       this.page = 1;
-      this.hideLoading();
+      // this.hideLoading();
     }, error => {
-      this.hideLoading();
+      // this.hideLoading();
       console.log(error);
     });
   }

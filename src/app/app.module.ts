@@ -1,29 +1,36 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { EmptyViewComponent } from '../components/empty-view/empty-view';
+
 import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
 import { HistoryPage } from '../pages/history/history';
 import { NewsPage } from '../pages/news/news';
-import { NewsDetailsPage } from '../pages/news-details/news-details';
+import { NewsDetailPage } from '../pages/news-detail/news-detail';
 import { WeatherPage } from '../pages/weather/weather';
 import { TravelGuidePage } from '../pages/travel-guide/travel-guide';
 import { PlacesPage } from '../pages/places/places';
+import { PlaceDetailPage } from '../pages/place-detail/place-detail';
+
 import { BlogService } from '../providers/blog-service';
 import { WeatherService } from '../providers/weather-service';
+
 import { TemperaturePipe } from '../pipes/temperature-pipe';
 
 @NgModule({
   declarations: [
     MyApp,
+    EmptyViewComponent,
     HomePage,
     AboutPage,
     HistoryPage,
     NewsPage,
-    NewsDetailsPage,
+    NewsDetailPage,
     WeatherPage,
     TravelGuidePage,
     PlacesPage,
+    PlaceDetailPage,
     TemperaturePipe
   ],
   imports: [
@@ -36,10 +43,11 @@ import { TemperaturePipe } from '../pipes/temperature-pipe';
     AboutPage,
     HistoryPage,
     NewsPage,
-    NewsDetailsPage,
+    NewsDetailPage,
     WeatherPage,
     TravelGuidePage,
-    PlacesPage
+    PlacesPage,
+    PlaceDetailPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, BlogService, WeatherService]
 })

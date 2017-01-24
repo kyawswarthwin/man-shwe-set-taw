@@ -8,7 +8,7 @@ import { WeatherService } from '../../providers/weather-service';
 })
 export class WeatherPage extends BasePage {
 
-  public forecast: any;
+  private forecast: any;
 
   constructor(public injector: Injector,
     public weather: WeatherService) {
@@ -16,16 +16,16 @@ export class WeatherPage extends BasePage {
   }
 
   ionViewDidLoad() {
+    this.showLoadingView();
     this.getForecast('1309289');
   }
 
   getForecast(cityId: string) {
-    this.showLoading();
     this.weather.forecast(cityId).then(data => {
       this.forecast = data;
-      this.hideLoading();
+      // this.hideLoading();
     }, error => {
-      this.hideLoading();
+      // this.hideLoading();
       console.log(error);
     });
   }

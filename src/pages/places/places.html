@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Places</ion-title>
+    <ion-title>{{ params.category.name }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -8,19 +8,21 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-list>
-    <ion-item *ngFor="let place of places">
+  <empty-view *ngIf="isErrorView" icon="alert" text="ကွန်နက်ရှင်မရှိပါ"></empty-view>
+  <empty-view *ngIf="isEmptyView" icon="bookmark" text="အချက်အလက်မရှိသေးပါ"></empty-view>
+  <ion-list *ngIf="isContentView">
+    <ion-item *ngFor="let place of places" (click)="goToPlaceDetailPage(place)">
       <ion-thumbnail item-left>
-        <img src="{{ place.image.url() }}">
+        <img src="{{ place.image ? place.image.url() : '' }}">
       </ion-thumbnail>
       <h2>{{ place.name }}</h2>
       <p>{{ place.description }}</p>
       <ion-note item-right>
-        {{ place.distance(params.location, 'mi') }}
+        {{ place.distance(params.location, 'မိုင်') }}
       </ion-note>
     </ion-item>
   </ion-list>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll *ngIf="isContentView" (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>

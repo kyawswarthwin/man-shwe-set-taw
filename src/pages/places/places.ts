@@ -2,6 +2,7 @@ import { Component, Injector } from '@angular/core';
 import { Geolocation } from 'ionic-native';
 import { BasePage } from '../base/base';
 import { Place } from '../../providers/place';
+import { PlaceDetailPage } from '../place-detail/place-detail';
 
 @Component({
   selector: 'page-places',
@@ -10,7 +11,7 @@ import { Place } from '../../providers/place';
 export class PlacesPage extends BasePage {
 
   private params: any = {};
-  private places: Place[] = [];
+  private places: Place[];
 
   constructor(public injector: Injector) {
     super(injector);
@@ -19,19 +20,22 @@ export class PlacesPage extends BasePage {
   }
 
   ionViewDidLoad() {
-    this.showLoading();
+    this.showLoadingView();
     this.doRefresh();
   }
 
   loadData() {
     Place.load(this.params).then(data => {
       this.places = this.places.concat(data);
-      this.hideLoading();
       this.onRefreshComplete(data);
+      if (this.places.length) {
+        this.showContentView();
+      } else {
+        this.showEmptyView();
+      }
     }, error => {
-      this.hideLoading();
       this.onRefreshComplete();
-      console.log(error);
+      this.showErrorView();
     });
   }
 
@@ -44,16 +48,20 @@ export class PlacesPage extends BasePage {
   doRefresh(refresher?: any) {
     this.refresher = refresher;
 
-    this.places = [];
     this.params.page = 0;
+    this.places = [];
 
-    Geolocation.getCurrentPosition().then(data => {
+    Geolocation.getCurrentPosition({ timeout: 10000, enableHighAccuracy: true }).then(data => {
       this.params.location = data.coords;
       this.loadData();
     }, error => {
-      this.hideLoading();
+      this.showErrorView();
       this.showToast('Location Unavailable');
     });
+  }
+
+  goToPlaceDetailPage(place: any) {
+    this.navigateTo(PlaceDetailPage, place);
   }
 
 }

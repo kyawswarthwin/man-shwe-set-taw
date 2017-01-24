@@ -1,11 +1,16 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Travel Guide</ion-title>
+    <ion-title>ခရီးသွားလမ်းညွှန်</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <empty-view *ngIf="isErrorView" icon="alert" text="ကွန်နက်ရှင်မရှိပါ"></empty-view>
+  <empty-view *ngIf="isEmptyView" icon="bookmark" text="အချက်အလက်မရှိသေးပါ"></empty-view>
+  <ion-list *ngIf="isContentView">
     <ion-item *ngFor="let category of categories" (click)="goToPlacesPage(category)">
       <ion-avatar item-left>
         <img src="{{ category.image ? category.image.url() : '' }}">
@@ -13,4 +18,7 @@
       <h2>{{ category.name }}</h2>
     </ion-item>
   </ion-list>
+  <ion-infinite-scroll *ngIf="isContentView" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

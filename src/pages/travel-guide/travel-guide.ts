@@ -11,6 +11,7 @@ import { PlacesPage } from '../places/places';
 })
 export class TravelGuidePage extends BasePage {
 
+  private params: any = {};
   private categories: Category[];
 
   constructor(public injector: Injector,
@@ -33,21 +34,41 @@ export class TravelGuidePage extends BasePage {
   }
 
   ionViewDidLoad() {
-    this.showLoading();
-    this.loadData();
+    this.showLoadingView();
+    this.doRefresh();
   }
 
   loadData() {
-    Category.load().then(data => {
-      this.categories = data;
-      this.hideLoading();
+    Category.load(this.params).then(data => {
+      this.categories = this.categories.concat(data);
+      this.onRefreshComplete(data);
+      if (this.categories.length) {
+        this.showContentView();
+      } else {
+        this.showEmptyView();
+      }
     }, error => {
-      this.hideLoading();
-      console.log(error);
+      this.onRefreshComplete();
+      this.showErrorView();
     });
   }
 
-  goToPlacesPage(category) {
+  doInfinite(infiniteScroll: any) {
+    this.infiniteScroll = infiniteScroll;
+    this.params.page++;
+    this.loadData();
+  }
+
+  doRefresh(refresher?: any) {
+    this.refresher = refresher;
+
+    this.params.page = 0;
+    this.categories = [];
+
+    this.loadData();
+  }
+
+  goToPlacesPage(category: any) {
     this.navigateTo(PlacesPage, category);
   }
 

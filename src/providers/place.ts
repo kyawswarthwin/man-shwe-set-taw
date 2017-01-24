@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Parse from 'parse';
+import { Category } from './category';
 
 @Injectable()
 export class Place extends Parse.Object {
@@ -8,21 +9,28 @@ export class Place extends Parse.Object {
     super('Place');
   }
 
-  static load(params): Promise<Place[]> {
+  static load(params: any): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let page = params.page || 0;
-      let limit = params.limit || 10;
+      let limit = params.limit || 15;
 
       let query = new Parse.Query(this);
 
-      query.equalTo('category', params.category);
       query.include('category');
 
-      let point = new Parse.GeoPoint({
-        latitude: params.location.latitude,
-        longitude: params.location.longitude
-      });
-      query.near('location', point);
+      if (params.category) query.equalTo('category', params.category);
+
+      if (params.location) {
+        let point = new Parse.GeoPoint({
+          latitude: params.location.latitude,
+          longitude: params.location.longitude
+        });
+        query.near('location', point);
+      } else {
+        query.descending('createdAt');
+      }
+
+      query.equalTo('isApproved', true);
 
       query.skip(page * limit);
       query.limit(limit);
@@ -31,7 +39,8 @@ export class Place extends Parse.Object {
     });
   }
 
-  distance(location, unit): string {
+  distance(location: any, unit: string): string {
+    if (!location) return null;
     let point = new Parse.GeoPoint({
       latitude: location.latitude,
       longitude: location.longitude
@@ -51,12 +60,24 @@ export class Place extends Parse.Object {
     return this.get('name');
   }
 
+  get category(): Category {
+    return this.get('category');
+  }
+
   get description(): string {
     return this.get('description');
   }
 
   get location(): Parse.GeoPoint {
     return this.get('location');
+  }
+
+  get address(): string {
+    return this.get('address');
+  }
+
+  get phone(): string {
+    return this.get('phone');
   }
 
 }

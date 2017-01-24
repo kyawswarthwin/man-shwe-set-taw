@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>နေရာအသေးစိတ်</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="detail">
+  <div class="cover">
+    <img src="{{ place.image ? place.image.url() : '' }}">
+  </div>
+  <div class="content">
+    <ion-fab right top>
+      <button ion-fab color="light" (click)="getDirections(place.location)"><ion-icon name="navigate"></ion-icon></button>
+    </ion-fab>
+    <div padding>
+      <h2>{{ place.name }}</h2>
+      <p class="subtitle">{{ place.category.name }}</p>
+    </div>
+    <hr>
+    <div padding>
+      <h3>Description</h3>
+      <p>
+        {{ place.description }}
+      </p>
+    </div>
+    <hr>
+    <h3 padding>Informations</h3>
+    <ion-list>
+      <ion-item *ngIf="!!place.address">
+        <h4>Address</h4>
+        <p>{{ place.address }}</p>
+        <button ion-button outline item-right (click)="getDirections(place.location)">Get Directions</button>
+      </ion-item>
+      <ion-item *ngIf="!!place.phone">
+        <h4>Phone</h4>
+        <p>{{ place.phone }}</p>
+        <button ion-button outline item-right (click)="call(place.phone)">Call</button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

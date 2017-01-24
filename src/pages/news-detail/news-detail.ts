@@ -3,10 +3,10 @@ import { BasePage } from '../base/base';
 import { BlogService } from '../../providers/blog-service';
 
 @Component({
-  selector: 'page-news-details',
-  templateUrl: 'news-details.html'
+  selector: 'page-news-detail',
+  templateUrl: 'news-detail.html'
 })
-export class NewsDetailsPage extends BasePage {
+export class NewsDetailPage extends BasePage {
   private url: string;
   public details: any = [];
 
@@ -17,16 +17,16 @@ export class NewsDetailsPage extends BasePage {
   }
 
   ionViewDidLoad() {
+    this.showLoadingView();
     this.getPostDetails(this.url);
   }
 
   getPostDetails(url: string) {
-    this.showLoading();
     this.blog.postDetails(url).then(data => {
       this.details.push(data);
-      this.hideLoading();
+      // this.hideLoading();
     }, error => {
-      this.hideLoading();
+      // this.hideLoading();
       console.log(error);
     });
   }

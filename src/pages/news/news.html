@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>News</ion-title>
+    <ion-title>သတင်း</ion-title>
   </ion-navbar>
   <ion-searchbar [(ngModel)]="searchQuery" (keyup.enter)="searchPosts(searchQuery)" (ionInput)="clearSearch($event)">
   </ion-searchbar>
@@ -28,7 +28,7 @@
       </p>
     </ion-card-content>
     <ion-item>
-      <button ion-button clear (click)="goToNewsDetailsPage(post._links.self[0].href)">See More</button>
+      <button ion-button clear (click)="goToNewsDetailPage(post._links.self[0].href)">See More</button>
     </ion-item>
   </ion-card>
   <ion-fab right bottom *ngIf="showButton">
