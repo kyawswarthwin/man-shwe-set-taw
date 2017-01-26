@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +12,30 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.bold {
+  font-weight: bold;
+}
+
+.xx-large {
+  font-size: 4.2rem;
+}
+
+.x-large {
+  font-size: 3.2rem;
+}
+
+.large {
+  font-size: 2.6rem;
+}
+
+.medium {
+  font-size: 2.2rem;
+}
+
+.small {
+  font-size: 1.8rem;
+}
+
+.x-small {
+  font-size: 1.6rem;
+}

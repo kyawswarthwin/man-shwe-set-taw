@@ -17,16 +17,15 @@ export class WeatherPage extends BasePage {
 
   ionViewDidLoad() {
     this.showLoadingView();
-    this.getForecast('1309289');
+    this.getForecast(20.1713723, 94.87021559999994);
   }
 
-  getForecast(cityId: string) {
-    this.weather.forecast(cityId).then(data => {
+  getForecast(latitude: number, longitude: number) {
+    this.weather.forecast(latitude, longitude).then(data => {
       this.forecast = data;
-      // this.hideLoading();
+      this.showContentView();
     }, error => {
-      // this.hideLoading();
-      console.log(error);
+      this.showErrorView();
     });
   }
 

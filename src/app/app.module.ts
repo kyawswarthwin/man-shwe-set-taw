@@ -1,4 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { JsonpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { EmptyViewComponent } from '../components/empty-view/empty-view';
@@ -16,8 +17,6 @@ import { PlaceDetailPage } from '../pages/place-detail/place-detail';
 import { BlogService } from '../providers/blog-service';
 import { WeatherService } from '../providers/weather-service';
 
-import { TemperaturePipe } from '../pipes/temperature-pipe';
-
 @NgModule({
   declarations: [
     MyApp,
@@ -30,11 +29,11 @@ import { TemperaturePipe } from '../pipes/temperature-pipe';
     WeatherPage,
     TravelGuidePage,
     PlacesPage,
-    PlaceDetailPage,
-    TemperaturePipe
+    PlaceDetailPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    JsonpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

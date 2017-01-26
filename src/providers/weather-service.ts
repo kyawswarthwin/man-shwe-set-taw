@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Jsonp } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class WeatherService {
 
-  private baseUrl: string = 'http://api.openweathermap.org/data/2.5/';
-  private appId: string = '3a8aaa69323915155bfeda8b50832777';
+  private baseUrl: string = 'https://api.darksky.net/forecast/';
+  private apiKey: string = 'cc4a7f6a9045cbeeb51cc4ada47be9ab';
 
-  constructor(public http: Http) { }
+  constructor(public jsonp: Jsonp) { }
 
-  forecast(cityId: string) {
-    let url: string = this.baseUrl + 'forecast/daily';
-    url += '?id=' + cityId;
-    url += '&appid=' + this.appId;
+  forecast(latitude: number, longitude: number): Promise<any> {
+    let url = this.baseUrl + this.apiKey;
+    url += '/' + latitude + ',' + longitude;
+    url += '?exclude=minutely,hourly,alerts,flags&units=si';
+    url += '&callback=JSONP_CALLBACK';
 
     return new Promise((resolve, reject) => {
-      this.http.get(url).map(res => res.json()).subscribe(data => resolve(data.list), error => reject(error));
+      this.jsonp.get(url).map(res => res.json()).subscribe(data => resolve(data), error => reject(error));
     });
   }
 

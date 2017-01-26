@@ -3,18 +3,45 @@
     <ion-title>ရာသီဥတု</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let weather of forecast">
-      <ion-thumbnail item-left>
-        <img src="http://openweathermap.org/img/w/{{ weather.weather[0].icon }}.png">
-      </ion-thumbnail>
-      <h2>{{ weather.dt * 1000 | date: 'EEEE' }}</h2>
-      <p>
-        <ion-icon name="thermometer"></ion-icon>&nbsp;&nbsp;{{ weather.temp.min | temperature: 'c' }} ~ {{ weather.temp.max | temperature: 'c' }}&nbsp;&nbsp;
-        <ion-icon name="umbrella"></ion-icon>&nbsp;&nbsp;{{ weather.humidity }} %
-      </p>
+  <empty-view *ngIf="isErrorView" icon="alert" text="ကွန်နက်ရှင်မရှိပါ"></empty-view>
+  <ion-list *ngIf="isContentView && forecast" class="weather">
+    <ion-item text-center class="detail">
+      <div class="bold large">မန်းရွှေစက်တော်</div>
+      <div class="small">{{ forecast.daily.data[0].time * 1000 | date: 'mediumDate' }}</div>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-33>
+            <div>
+              <div class="xx-large">{{ forecast.currently.temperature | number: '1.0-0' }}&deg;</div>
+              <span class="large">{{ forecast.daily.data[0].temperatureMax | number: '1.0-0' }}&deg;</span>
+              <span class="medium">{{ forecast.daily.data[0].temperatureMin | number: '1.0-0' }}&deg;</span>
+            </div>
+          </ion-col>
+          <ion-col width-33>
+            <div>
+              <i class="icon wi wi-forecast-io-{{ forecast.currently.icon }}"></i>
+              <div class="bold small">{{ forecast.currently.summary }}</div>
+            </div>
+          </ion-col>
+          <ion-col width-33>
+            <div>
+              <i class="wi wi-sunrise"></i>
+              <div class="bold small">{{ forecast.daily.data[0].sunriseTime * 1000 | date: 'jm' }}</div>
+              <i class="wi wi-sunset"></i>
+              <div class="bold small">{{ forecast.daily.data[0].sunsetTime * 1000 | date: 'jm' }}</div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item *ngFor="let weather of forecast.daily.data | slice: 1" class="forecast">
+      <i item-left class="wi wi-forecast-io-{{ weather.icon }}"></i>
+      <h2>{{ weather.time * 1000 | date: 'EEEE' }}</h2>
+      <div item-right>
+        <span class="large" color="danger">{{ weather.temperatureMax | number: '1.0-0' }}&deg;</span>
+        <span class="bold medium" color="primary">{{ weather.temperatureMin | number: '1.0-0' }}&deg;</span>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

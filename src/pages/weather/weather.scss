@@ -1,3 +1,28 @@
 page-weather {
-
+  .weather {
+    height: 100%;
+  }
+  .weather .detail {
+    min-height: 40%;
+    margin-bottom: -1px;
+    background-color: color($colors, primary);
+    color: color($colors, light);
+  }
+  .weather .detail ion-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .weather .detail ion-col i {
+    font-size: 24px;
+  }
+  .weather .detail ion-col i.icon {
+    font-size: 80px;
+    margin: 8px;
+  }
+  .weather .forecast i {
+    font-size: 32px;
+    margin: 8px;
+    color: color($colors, primary);
+  }
 }
