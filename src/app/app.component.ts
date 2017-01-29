@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { HomePage } from '../pages/home/home';
 import Parse from 'parse';
+import { PARSE_SDK } from '../providers/constants';
 
 @Component({
   templateUrl: 'app.html'
@@ -18,7 +19,7 @@ export class MyApp {
       Splashscreen.hide();
     });
 
-    Parse.initialize('UFD7CCSMBhjR6XaE05mIk5x7CzNC1IUqhi4jJK0m', 'bhW9MqveU4Niw2EhaXJUValhRNYy1EO7xjgQ5fPQ');
+    Parse.initialize(PARSE_SDK.APP_ID, PARSE_SDK.JAVASCRIPT_KEY);
     Parse.serverURL = 'https://parseapi.back4app.com/';
   }
 }

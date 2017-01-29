@@ -27,10 +27,9 @@ export class NewsPage extends BasePage {
     this.showLoadingView();
     this.blog.posts().then(data => {
       this.posts = data;
-      // this.hideLoading();
+      this.showContentView();
     }, error => {
-      // this.hideLoading();
-      console.log(error);
+      this.showErrorView();
     });
   }
 

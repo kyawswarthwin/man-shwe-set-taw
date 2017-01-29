@@ -24,10 +24,9 @@ export class NewsDetailPage extends BasePage {
   getPostDetails(url: string) {
     this.blog.postDetails(url).then(data => {
       this.details.push(data);
-      // this.hideLoading();
+      this.showContentView();
     }, error => {
-      // this.hideLoading();
-      console.log(error);
+      this.showErrorView();
     });
   }
 }

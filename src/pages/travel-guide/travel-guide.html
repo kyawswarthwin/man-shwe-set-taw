@@ -12,7 +12,7 @@
   <ion-list *ngIf="isContentView">
     <ion-item *ngFor="let category of categories" (click)="goToPlacesPage(category)">
       <ion-avatar item-left>
-        <img src="{{ category.image ? category.image.url() : '' }}">
+        <img src="{{ category.image ? category.image.url() : 'http://placehold.it/128x128' }}">
       </ion-avatar>
       <h2>{{ category.name }}</h2>
     </ion-item>

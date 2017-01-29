@@ -3,39 +3,29 @@
     <ion-title>နေရာအသေးစိတ်</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content class="detail">
-  <div class="cover">
-    <img src="{{ place.image ? place.image.url() : '' }}">
-  </div>
+  <img src="{{ place.image ? place.image.url() : 'http://placehold.it/300x225' }}">
   <div class="content">
-    <ion-fab right top>
-      <button ion-fab color="light" (click)="getDirections(place.location)"><ion-icon name="navigate"></ion-icon></button>
+    <ion-fab top right>
+      <button ion-fab color="primary" (click)="getDirections(place.location)"><ion-icon name="navigate"></ion-icon></button>
     </ion-fab>
     <div padding>
       <h2>{{ place.name }}</h2>
-      <p class="subtitle">{{ place.category.name }}</p>
+      <p>{{ place.description }}</p>
     </div>
-    <hr>
-    <div padding>
-      <h3>Description</h3>
-      <p>
-        {{ place.description }}
-      </p>
+    <div *ngIf="place.address || place.phone">
+      <hr>
+      <h5 padding>ဆက်သွယ်ရန်</h5>
+      <ion-list>
+        <ion-item *ngIf="place.address" (click)="getDirections(place.location)">
+          <h4>လိပ်စာ</h4>
+          <p>{{ place.address }}</p>
+        </ion-item>
+        <ion-item *ngIf="place.phone" (click)="call(place.phone)">
+          <h4>ဖုန်း</h4>
+          <p>{{ place.phone }}</p>
+        </ion-item>
+      </ion-list>
     </div>
-    <hr>
-    <h3 padding>Informations</h3>
-    <ion-list>
-      <ion-item *ngIf="!!place.address">
-        <h4>Address</h4>
-        <p>{{ place.address }}</p>
-        <button ion-button outline item-right (click)="getDirections(place.location)">Get Directions</button>
-      </ion-item>
-      <ion-item *ngIf="!!place.phone">
-        <h4>Phone</h4>
-        <p>{{ place.phone }}</p>
-        <button ion-button outline item-right (click)="call(place.phone)">Call</button>
-      </ion-item>
-    </ion-list>
   </div>
 </ion-content>

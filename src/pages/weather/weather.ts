@@ -19,7 +19,7 @@ export class WeatherPage extends BasePage {
 
   ionViewDidLoad() {
     this.showLoadingView();
-    this.getForecast(20.1713723, 94.87021559999994);
+    this.getForecast(20.103675, 94.527676);
   }
 
   getForecast(latitude: number, longitude: number) {

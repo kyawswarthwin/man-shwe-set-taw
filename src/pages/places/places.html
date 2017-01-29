@@ -12,7 +12,7 @@
   <ion-list *ngIf="isContentView">
     <ion-item *ngFor="let place of places" (click)="goToPlaceDetailPage(place)">
       <ion-thumbnail item-left>
-        <img src="{{ place.image ? place.image.url() : '' }}">
+        <img src="{{ place.image ? place.image.url() : 'http://placehold.it/300x225' }}">
       </ion-thumbnail>
       <h2>{{ place.name }}</h2>
       <p>{{ place.description }}</p>
