@@ -11,7 +11,7 @@
     </ion-fab>
     <div padding>
       <h2>{{ place.name }}</h2>
-      <p>{{ place.description }}</p>
+      <p [innerHTML]="place.description"></p>
     </div>
     <div *ngIf="place.address || place.phone">
       <hr>

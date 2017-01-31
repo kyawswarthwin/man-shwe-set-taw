@@ -8,26 +8,25 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-
-<ion-content class="card-background-page">
-  <ion-card (click)="goToHistoryPage()">
-    <img src="assets/img/card-history.png" />
-    <div class="card-title">သမိုင်း</div>
-    <div class="card-subtitle">History</div>
-  </ion-card>
-  <ion-card (click)="goToNewsPage()">
-    <img src="assets/img/card-news.png" />
-    <div class="card-title">သတင်း</div>
-    <div class="card-subtitle">News</div>
-  </ion-card>
-  <ion-card (click)="goToWeatherPage()">
-    <img src="assets/img/card-weather.png" />
-    <div class="card-title">ရာသီဥတု</div>
-    <div class="card-subtitle">Weather</div>
-  </ion-card>
-  <ion-card (click)="goToTravelGuidePage()">
-    <img src="assets/img/card-travel-guide.png" />
-    <div class="card-title">ခရီးသွားလမ်းညွှန်</div>
-    <div class="card-subtitle">Travel Guide</div>
-  </ion-card>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <empty-view *ngIf="isErrorView" icon="alert" text="ကွန်နက်ရှင်မရှိပါ"></empty-view>
+  <ion-slides *ngIf="isContentView" [options]="options">
+    <ion-slide *ngFor="let slide of slides">
+      <img [src]="slide.image">
+    </ion-slide>
+  </ion-slides>
+  <ion-list *ngIf="isContentView">
+    <ion-item *ngFor="let item of items" (click)="navigateTo(item.page)">
+      <h2>{{ item.title }}</h2>
+    </ion-item>
+    <ion-item *ngFor="let page of pages" (click)="goToPageDetailPage(page)">
+      <h2>{{ page.title.rendered }}</h2>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll *ngIf="isContentView" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

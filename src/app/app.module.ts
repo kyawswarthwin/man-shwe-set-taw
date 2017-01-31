@@ -2,20 +2,21 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { JsonpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
 import { EmptyViewComponent } from '../components/empty-view/empty-view';
 
 import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
-import { HistoryPage } from '../pages/history/history';
-import { NewsPage } from '../pages/news/news';
-import { NewsDetailPage } from '../pages/news-detail/news-detail';
-import { WeatherPage } from '../pages/weather/weather';
 import { TravelGuidePage } from '../pages/travel-guide/travel-guide';
 import { PlacesPage } from '../pages/places/places';
 import { PlaceDetailPage } from '../pages/place-detail/place-detail';
+import { WeatherPage } from '../pages/weather/weather';
+import { NewsPage } from '../pages/news/news';
+import { NewsDetailPage } from '../pages/news-detail/news-detail';
+import { PageDetailPage } from '../pages/page-detail/page-detail';
 
-import { BlogService } from '../providers/blog-service';
 import { WeatherService } from '../providers/weather-service';
+import { WordPressService } from '../providers/wordpress-service';
 
 @NgModule({
   declarations: [
@@ -23,13 +24,13 @@ import { WeatherService } from '../providers/weather-service';
     EmptyViewComponent,
     HomePage,
     AboutPage,
-    HistoryPage,
-    NewsPage,
-    NewsDetailPage,
-    WeatherPage,
     TravelGuidePage,
     PlacesPage,
-    PlaceDetailPage
+    PlaceDetailPage,
+    WeatherPage,
+    NewsPage,
+    NewsDetailPage,
+    PageDetailPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -40,14 +41,14 @@ import { WeatherService } from '../providers/weather-service';
     MyApp,
     HomePage,
     AboutPage,
-    HistoryPage,
-    NewsPage,
-    NewsDetailPage,
-    WeatherPage,
     TravelGuidePage,
     PlacesPage,
-    PlaceDetailPage
+    PlaceDetailPage,
+    WeatherPage,
+    NewsPage,
+    NewsDetailPage,
+    PageDetailPage
   ],
-  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, BlogService, WeatherService]
+  providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler }, WeatherService, WordPressService]
 })
 export class AppModule { }

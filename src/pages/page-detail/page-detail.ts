@@ -2,17 +2,17 @@ import { Component, Injector } from '@angular/core';
 import { BasePage } from '../base/base';
 
 @Component({
-  selector: 'page-news-detail',
-  templateUrl: 'news-detail.html'
+  selector: 'page-page-detail',
+  templateUrl: 'page-detail.html'
 })
-export class NewsDetailPage extends BasePage {
+export class PageDetailPage extends BasePage {
 
-  private post: any;
+  private page: any;
 
   constructor(public injector: Injector) {
     super(injector);
 
-    this.post = this.navParams.data;
+    this.page = this.navParams.data;
   }
 
   ionViewDidLoad() { }

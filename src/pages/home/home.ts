@@ -1,10 +1,11 @@
 import { Component, Injector } from '@angular/core';
 import { BasePage } from '../base/base';
 import { AboutPage } from '../about/about';
-import { HistoryPage } from '../history/history';
-import { NewsPage } from '../news/news';
-import { WeatherPage } from '../weather/weather';
 import { TravelGuidePage } from '../travel-guide/travel-guide';
+import { WeatherPage } from '../weather/weather';
+import { NewsPage } from '../news/news';
+import { PageDetailPage } from '../page-detail/page-detail';
+import { WordPressService } from '../../providers/wordpress-service';
 
 @Component({
   selector: 'page-home',
@@ -12,28 +13,83 @@ import { TravelGuidePage } from '../travel-guide/travel-guide';
 })
 export class HomePage extends BasePage {
 
-  constructor(public injector: Injector) {
+  private options = {
+    pager: true,
+    autoplay: 8000,
+    autoplayDisableOnInteraction: false
+  };
+  private slides = [
+    {
+      image: "assets/img/banner.jpg"
+    },
+    {
+      image: "assets/img/banner2.jpg"
+    },
+    {
+      image: "assets/img/banner3.jpg"
+    }
+  ];
+
+  private items = [
+    {
+      title: "ခရီးသွားလမ်းညွှန်",
+      page: TravelGuidePage
+    },
+    {
+      title: "ရာသီဥတု",
+      page: WeatherPage
+    },
+    {
+      title: "သတင်း",
+      page: NewsPage
+    }
+  ];
+
+  private params: any = {};
+  private pages: any[];
+
+  constructor(public injector: Injector,
+    public wordpress: WordPressService) {
     super(injector);
+  }
+
+  ionViewDidLoad() {
+    this.showLoadingView();
+    this.doRefresh();
   }
 
   goToAboutPage() {
     this.navigateTo(AboutPage);
   }
 
-  goToHistoryPage() {
-    this.navigateTo(HistoryPage);
+  getPages() {
+    this.wordpress.pages(this.params).then(data => {
+      this.pages = this.pages.concat(data);
+      this.onRefreshComplete(data);
+      this.showContentView();
+    }, error => {
+      this.onRefreshComplete();
+      this.showErrorView();
+    });
   }
 
-  goToNewsPage() {
-    this.navigateTo(NewsPage);
+  doInfinite(infiniteScroll: any) {
+    this.infiniteScroll = infiniteScroll;
+    this.params.page++;
+    this.getPages();
   }
 
-  goToWeatherPage() {
-    this.navigateTo(WeatherPage);
+  doRefresh(refresher?: any) {
+    this.refresher = refresher;
+
+    this.params.page = 1;
+    this.pages = [];
+
+    this.getPages();
   }
 
-  goToTravelGuidePage() {
-    this.navigateTo(TravelGuidePage);
+  goToPageDetailPage(page: any) {
+    this.navigateTo(PageDetailPage, page);
   }
 
 }

@@ -1,8 +1,8 @@
 import { Component, Injector, ViewChild, NgZone } from '@angular/core';
-import { BasePage } from '../base/base';
 import { Content } from 'ionic-angular';
-import { BlogService } from '../../providers/blog-service';
+import { BasePage } from '../base/base';
 import { NewsDetailPage } from '../news-detail/news-detail';
+import { WordPressService } from '../../providers/wordpress-service';
 
 @Component({
   selector: 'page-news',
@@ -12,98 +12,60 @@ export class NewsPage extends BasePage {
 
   @ViewChild(Content) content: Content;
 
-  public posts: any;
-  public searchQuery: string = '';
-  public page: number = 1;
-  public showButton: boolean;
+  private params: any = {};
+  private posts: any[];
+  private searchQuery: string = '';
+  private showButton: boolean;
 
   constructor(public injector: Injector,
     public zone: NgZone,
-    public blog: BlogService) {
+    public wordpress: WordPressService) {
     super(injector);
   }
 
   ionViewDidLoad() {
     this.showLoadingView();
-    this.blog.posts().then(data => {
-      this.posts = data;
-      this.showContentView();
+    this.doRefresh();
+  }
+
+  getPosts() {
+    this.wordpress.posts(this.params).then(data => {
+      this.posts = this.posts.concat(data);
+      this.onRefreshComplete(data);
+      if (this.posts.length) {
+        this.showContentView();
+      } else {
+        this.showEmptyView();
+      }
     }, error => {
+      this.onRefreshComplete();
       this.showErrorView();
     });
   }
 
-  goToNewsDetailPage(url: string) {
-    this.navigateTo(NewsDetailPage, {
-      url: url
-    });
-  }
-
-  searchPosts(query: string) {
+  searchPosts() {
     this.showLoadingView();
-    this.blog.searchPosts(query).then(data => {
-      this.posts = data;
-      this.page = 1;
-      // this.hideLoading();
-    }, error => {
-      // this.hideLoading();
-      console.log(error);
-    });
+    this.doRefresh();
   }
 
   clearSearch(event: any) {
-    if (!event.target.value) {
-      this.blog.posts().then(data => {
-        this.posts = data;
-        this.page = 1;
-      }, error => {
-        console.log(error);
-      });
-    }
+    if (!event.target.value) this.doRefresh();
   }
 
   doInfinite(infiniteScroll: any) {
-    if (!this.searchQuery) {
-      this.blog.posts(this.page + 1).then(data => {
-        infiniteScroll.complete();
-        let newPosts: any = data;
-        if (newPosts.length === 0) {
-          this.showToast('No More Posts');
-        } else {
-          this.posts = this.posts.concat(newPosts);
-          this.page++;
-        }
-      }, error => {
-        infiniteScroll.complete();
-        console.log(error);
-      });
-    } else {
-      this.blog.searchPosts(this.searchQuery, this.page + 1).then(data => {
-        infiniteScroll.complete();
-        let newPosts: any = data;
-        if (newPosts.length === 0) {
-          this.showToast('No More Posts');
-        } else {
-          this.posts = this.posts.concat(newPosts);
-          this.page++;
-        }
-      }, error => {
-        infiniteScroll.complete();
-        console.log(error);
-      });
-    }
+    this.infiniteScroll = infiniteScroll;
+    this.params.page++;
+    this.getPosts();
   }
 
-  doRefresh(refresher: any) {
-    this.blog.posts().then(data => {
-      refresher.complete();
-      this.posts = data;
-      this.searchQuery = '';
-      this.page = 1;
-    }, error => {
-      refresher.complete();
-      console.log(error);
-    });
+  doRefresh(refresher?: any) {
+    this.refresher = refresher;
+
+    this.params.page = 1;
+    this.params.search = this.searchQuery;
+    this.posts = [];
+
+    this.getPosts();
   }
 
   onScrollEnd(event: any) {
@@ -114,6 +76,10 @@ export class NewsPage extends BasePage {
 
   scrollToTop() {
     this.content.scrollToTop();
+  }
+
+  goToNewsDetailPage(post: any) {
+    this.navigateTo(NewsDetailPage, post);
   }
 
 }
