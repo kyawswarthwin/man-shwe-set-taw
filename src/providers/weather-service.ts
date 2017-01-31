@@ -8,7 +8,7 @@ export class WeatherService {
 
   private baseUrl: string = 'https://api.darksky.net/forecast/';
 
-  constructor(public jsonp: Jsonp) { }
+  constructor(private jsonp: Jsonp) { }
 
   forecast(latitude: number, longitude: number): Promise<any> {
     let url = this.baseUrl + DARKSKY_API_KEY;

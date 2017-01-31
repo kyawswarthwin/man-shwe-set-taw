@@ -8,7 +8,7 @@ export class WordPressService {
 
   private baseUrl: string = WORDPRESS_URL + '/wp-json/wp/v2';
 
-  constructor(public http: Http) { }
+  constructor(private http: Http) { }
 
   posts(params): Promise<any[]> {
     let url = this.baseUrl + '/posts';
