@@ -5,4 +5,4 @@ export const PARSE_SDK = {
 
 export const DARKSKY_API_KEY: string = '2f44d5d581f7045035867d05b301933d';
 
-export const WORDPRESS_URL: string = 'http://www.smartzawgyi.com';
+export const WORDPRESS_URL: string = 'http://www.manshwesettaw.com';

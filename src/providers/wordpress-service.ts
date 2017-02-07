@@ -23,6 +23,8 @@ export class WordPressService {
   pages(params): Promise<any[]> {
     let url = this.baseUrl + '/pages';
     url += '?' + this.serialize(params);
+    url += '&order=asc';
+    url += '&orderby=menu_order';
 
     return new Promise((resolve, reject) => {
       this.http.get(url).map(res => res.json()).subscribe(data => resolve(data), error => reject(error));
