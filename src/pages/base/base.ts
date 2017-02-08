@@ -121,7 +121,7 @@ export abstract class BasePage {
         start: [data.coords.latitude, data.coords.longitude]
       });
     }, error => {
-      this.showToast('Location Unavailable');
+      this.showToast('တည်နေရာရှာမရပါ');
     });
   }
 

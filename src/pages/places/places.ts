@@ -56,7 +56,7 @@ export class PlacesPage extends BasePage {
       this.loadData();
     }, error => {
       this.showErrorView();
-      this.showToast('Location Unavailable');
+      this.showToast('တည်နေရာရှာမရပါ');
     });
   }
 

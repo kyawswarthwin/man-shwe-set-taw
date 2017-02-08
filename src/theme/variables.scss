@@ -12,9 +12,11 @@ $font-path: "../assets/fonts";
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
-$font-family-base:           -apple-system, "Helvetica Neue", "Roboto", sans-serif, Pyidaungsu !default;
+ion-app {
+  font-family: Pyidaungsu !important;
+}
 
-$toolbar-background:         #387ef5 !default;
+$toolbar-background: #387ef5 !default;
 
 
 // Named Color Variables

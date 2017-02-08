@@ -12,7 +12,7 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <empty-view *ngIf="isErrorView" icon="alert" text="ကွန်နက်ရှင်မရှိပါ"></empty-view>
+  <empty-view *ngIf="isErrorView" icon="alert" text="ချိတ်ဆက်၍မရပါ"></empty-view>
   <ion-slides *ngIf="isContentView" [options]="options">
     <ion-slide *ngFor="let slide of slides">
       <img [src]="slide.image">
