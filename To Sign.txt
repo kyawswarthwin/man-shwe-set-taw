@@ -1,0 +1,11 @@
+ionic platform rm android
+ionic platform add android@latest
+ionic resources
+ionic build android
+cordova build --release android
+keytool -genkey -v -keystore manshwesettaw.keystore -alias manshwesettaw -keyalg RSA -keysize 2048 -validity 10000
+880e0d76
+Kyaw Swar Thwin
+Myanmar Unicorn
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore manshwesettaw.keystore .\platforms\android\build\outputs\apk\android-release-unsigned.apk manshwesettaw
+%ANDROID_HOME%\build-tools\25.0.2\zipalign -v 4 .\platforms\android\build\outputs\apk\android-release-unsigned.apk manshwesettaw.apk
