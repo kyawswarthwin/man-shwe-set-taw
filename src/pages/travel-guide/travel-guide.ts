@@ -25,7 +25,7 @@ export class TravelGuidePage extends BasePage {
             console.log('Request Successful');
           }, error => {
             if (error && error.code !== LocationAccuracy.ERROR_USER_DISAGREED) {
-              this.showConfirm("Failed to automatically set Location Mode to 'High Accuracy'. Would you like to switch to the Location Settings page and do this manually?").then(() => Diagnostic.switchToLocationSettings());
+              this.showConfirm("တိကျသော မြေပုံလမ်းညွှန်စနစ် ရရှိစေရန် Location Mode ကို High Accuracy ထားပေးရန် လိုအပ်သည်။").then(() => Diagnostic.switchToLocationSettings());
             }
           });
         }
