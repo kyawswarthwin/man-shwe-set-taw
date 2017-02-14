@@ -2,23 +2,17 @@ import { Injectable } from '@angular/core';
 import Parse from 'parse';
 
 @Injectable()
-export class Category extends Parse.Object {
+export class Banner extends Parse.Object {
 
   constructor() {
-    super('Category');
+    super('Banner');
   }
 
-  static load(params: any): Promise<Category[]> {
+  static load(): Promise<Banner[]> {
     return new Promise((resolve, reject) => {
-      let page = params.page || 0;
-      let limit = params.limit || 10;
-
       let query = new Parse.Query(this);
 
       query.equalTo('isApproved', true);
-
-      query.skip(page * limit);
-      query.limit(limit);
 
       query.find().then(data => resolve(data), error => reject(error));
     });
@@ -28,10 +22,6 @@ export class Category extends Parse.Object {
     return this.get('image');
   }
 
-  get name(): string {
-    return this.get('name');
-  }
-
 }
 
-Parse.Object.registerSubclass('Category', Category);
+Parse.Object.registerSubclass('Banner', Banner);

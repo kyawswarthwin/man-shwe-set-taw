@@ -15,7 +15,7 @@
   <empty-view *ngIf="isErrorView" icon="alert" text="ချိတ်ဆက်၍မရပါ"></empty-view>
   <ion-slides *ngIf="isContentView" [options]="options">
     <ion-slide *ngFor="let slide of slides">
-      <img [src]="slide.image">
+      <img src="{{ slide.image ? slide.image.url() : 'http://placehold.it/640x480' }}">
     </ion-slide>
   </ion-slides>
   <ion-list *ngIf="isContentView">

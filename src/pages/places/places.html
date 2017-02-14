@@ -15,7 +15,6 @@
         <img src="{{ place.image ? place.image.url() : 'http://placehold.it/300x225' }}">
       </ion-thumbnail>
       <h2>{{ place.name }}</h2>
-      <p>{{ place.description }}</p>
       <ion-note item-right>
         {{ place.distance(params.location, 'မိုင်') }}
       </ion-note>

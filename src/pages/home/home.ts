@@ -5,6 +5,7 @@ import { TravelGuidePage } from '../travel-guide/travel-guide';
 import { WeatherPage } from '../weather/weather';
 import { NewsPage } from '../news/news';
 import { PageDetailPage } from '../page-detail/page-detail';
+import { Banner } from '../../providers/banner';
 import { WordPressService } from '../../providers/wordpress-service';
 
 @Component({
@@ -18,17 +19,7 @@ export class HomePage extends BasePage {
     autoplay: 8000,
     autoplayDisableOnInteraction: false
   };
-  private slides = [
-    {
-      image: "assets/img/banner.jpg"
-    },
-    {
-      image: "assets/img/banner2.jpg"
-    },
-    {
-      image: "assets/img/banner3.jpg"
-    }
-  ];
+  private slides: Banner[];
 
   private items = [
     {
@@ -85,7 +76,12 @@ export class HomePage extends BasePage {
     this.params.page = 1;
     this.pages = [];
 
-    this.getPages();
+    Banner.load().then(data => {
+      this.slides = data;
+      this.getPages();
+    }, error => {
+      this.showErrorView();
+    });
   }
 
   goToPageDetailPage(page: any) {

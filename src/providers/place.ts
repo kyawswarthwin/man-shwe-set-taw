@@ -12,7 +12,7 @@ export class Place extends Parse.Object {
   static load(params: any): Promise<Place[]> {
     return new Promise((resolve, reject) => {
       let page = params.page || 0;
-      let limit = params.limit || 15;
+      let limit = params.limit || 10;
 
       let query = new Parse.Query(this);
 

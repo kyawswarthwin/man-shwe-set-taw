@@ -14,6 +14,7 @@ export class WordPressService {
     let url = this.baseUrl + '/posts';
     url += '?' + this.serialize(params);
     url += '&_embed';
+    url += '&ran=' + new Date().getTime();
 
     return new Promise((resolve, reject) => {
       this.http.get(url).map(res => res.json()).subscribe(data => resolve(data), error => reject(error));
@@ -25,6 +26,7 @@ export class WordPressService {
     url += '?' + this.serialize(params);
     url += '&order=asc';
     url += '&orderby=menu_order';
+    url += '&ran=' + new Date().getTime();
 
     return new Promise((resolve, reject) => {
       this.http.get(url).map(res => res.json()).subscribe(data => resolve(data), error => reject(error));
