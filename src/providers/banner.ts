@@ -12,6 +12,8 @@ export class Banner extends Parse.Object {
     return new Promise((resolve, reject) => {
       let query = new Parse.Query(this);
 
+      query.ascending('order');
+
       query.equalTo('isApproved', true);
 
       query.find().then(data => resolve(data), error => reject(error));

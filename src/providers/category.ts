@@ -15,6 +15,8 @@ export class Category extends Parse.Object {
 
       let query = new Parse.Query(this);
 
+      query.ascending('order');
+
       query.equalTo('isApproved', true);
 
       query.skip(page * limit);
